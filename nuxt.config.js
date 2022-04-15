@@ -38,6 +38,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -48,4 +49,28 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  auth: {
+    redirect: {
+      login: '/',
+      home: false
+    },
+    strategies: {
+      'laravelSanctum': {
+        provider: 'laravel/sanctum',
+        url: process.env.API_BASE_URL,
+        endpoints: {
+          login: {
+            url: '/login'
+          },
+          user: {
+            url: '/api/v1/user'
+          },
+          logout: {
+            url: '/logout'
+          }
+        }
+      }
+    }
+  },
 }
